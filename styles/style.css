@@ -119,6 +119,11 @@ main {
         }
     }
     
+    input:checked + span {
+        text-decoration: line-through;
+        opacity: 0.5;
+    }
+
     span {
         flex-grow: 1;
         font: var(--paragraph);
