@@ -1,19 +1,19 @@
 const form = document.querySelector('form');
 const inputName = document.querySelector('#elementName');
-const listOfElements = document.querySelector('.list-of-elements');
+const listContainer = document.querySelector('.list-of-elements');
 
 // --------------- pegar a lista de itens do localStore ----------
-let listOfItems = localStorage.getItem('quicklist');
-if (listOfItems) {
-    listOfItems = JSON.parse(listOfItems);
+let listItems = localStorage.getItem('quicklist');
+if (listItems) {
+    listItems = JSON.parse(listItems);
 } else {
-    listOfItems = [];
+    listItems = [];
 };
 
 // ------------- adicionar itens ao carregar a tela ------------
 window.onload = () => {
-    if (listOfItems.length != 0) {
-        listOfItems.forEach((element) => {
+    if (listItems.length != 0) {
+        listItems.forEach((element) => {
         createElement(element.itemName, element.checked, element.id);
     });
     }
@@ -24,7 +24,7 @@ form.onsubmit = (event) => {
     event.preventDefault();
     const itemName = inputName.value.trim();
     const id = Date.now()
-    listOfItems.push(
+    listItems.push(
         {
             id: id,
             itemName: itemName,
@@ -53,28 +53,45 @@ function createElement(itemName, checked, id) {
     span.innerText = itemName;
     
     li.append(input, span, button);
-    listOfElements.append(li);
+    listContainer.append(li);
 }
 
 // ----------------- salva a lista no localStorage -----------
 function saveListToLocalStorage() {
     localStorage.setItem(
         'quicklist',
-        JSON.stringify(listOfItems)
+        JSON.stringify(listItems)
     );
 };
 
 // -------------- verifica e modifica o checked do item na lista ----------
-listOfElements.addEventListener('change', (event) => {
+listContainer.addEventListener('change', (event) => {
     if (event.target.type === 'checkbox') {
         // coleta do id e do estado do checkbox
-        const id = event.target.parentElement.dataset.id;
+        const id = event.target.closest('li').dataset.id;
         const checked = event.target.checked;
 
-        // acesso e modifico o item em listOfItems
-        const item = listOfItems.find(element => element.id == id);
+        // acesso e modifico o item em listItems
+        const item = listItems.find(element => element.id == id);
         item.checked = checked;
-        
+
         saveListToLocalStorage();
     }
+});
+
+// --------------apaga o elemento ----------------------
+listContainer.addEventListener('click', (event) => {
+    const btn = event.target.closest('button'); // se não clicar na área do botão o closest não encontra nada e retorna null
+    if (btn) {
+        const item = btn.closest('li');
+        const id = item.dataset.id;
+
+        listItems = listItems.filter( item => item.id != id);
+        saveListToLocalStorage();
+
+        item.classList.add('remove-item')
+        setTimeout(() => {
+            item.remove()
+        }, 350)
+    };
 });

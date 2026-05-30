@@ -98,7 +98,7 @@ main {
 
     &:hover {
         box-shadow: 2px 2px 10px var(--color-brand);
-        transform: scale(1.05);
+        transform: scale(1.03);
         button {
             background-image: url(../assets/trash-hover.svg);
         }
@@ -144,6 +144,10 @@ main {
         background-repeat: no-repeat;
         background-position: center;
     }
+}
+
+.remove-item {
+    transform: scale(0) !important;
 }
 
 .toast-notification {
