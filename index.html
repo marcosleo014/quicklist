@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quicklist</title>
+    <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="styles/index.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+
+</head>
+<body>
+    <header class="container header-logo">
+        <h1>
+            <img src="assets/logo.svg" alt="ícone Quicklist">
+            <span>quicklist</span>
+        </h1>
+    </header>
+
+    <main class="container">
+        <a href="#">
+            &lt- Voltar
+        </a>
+
+        <section class="element-creator">
+            <h2>Crie, organize e acompanhe tudo o que importa</h2>
+            <form action="#">
+                <input type="text" name="elementName" id="elementName" placeholder="Adicione um novo item">
+                <button>Adicionar item</button>
+            </form>
+        </section>
+
+        <section class="elements-area">
+
+            <p class="empty-list-msg">
+                Você ainda não possui elementos em sua listas
+            </p>
+
+            <ul>
+
+                <li class="element-list">
+                    <input type="checkbox" name="verification">
+                    <span>
+                        Ir pra academia
+                    </span>
+                    <button aria-label="remover item da lista"></button>
+                </li>
+                <li class="element-list">
+                    <input type="checkbox" name="verification">
+                    <span>
+                        Ir pra academia
+                    </span>
+                    <button aria-label="remover item da lista"></button>
+                </li>
+                <li class="element-list">
+                    <input type="checkbox" name="verification">
+                    <span>
+                        Ir pra academia
+                    </span>
+                    <button aria-label="remover item da lista"></button>
+                </li>
+                <li class="element-list">
+                    <input type="checkbox" name="verification">
+                    <span>
+                        Ir pra academia
+                    </span>
+                    <button aria-label="remover item da lista"></button>
+                </li>
+                <li class="element-list">
+                    <input type="checkbox" name="verification">
+                    <span>
+                        Ir pra academia
+                    </span>
+                    <button aria-label="remover item da lista"></button>
+                </li>
+                <li class="element-list">
+                    <input type="checkbox" name="verification">
+                    <span>
+                        Ir pra academia
+                    </span>
+                    <button aria-label="remover item da lista"></button>
+                </li>
+                <li class="element-list">
+                    <input type="checkbox" name="verification">
+                    <span>
+                        Ir pra academia
+                    </span>
+                    <button aria-label="remover item da lista"></button>
+                </li>
+
+            </ul>
+        </section>
+        
+    </main>
+        
+    <aside class="toast-notification" role="status">
+        <img src="assets/warning.svg" alt="ícone de alerta">
+        <p>Item removido com sucesso</p>
+        <button>
+            <img src="assets/delete.svg" alt="ícone de fechar">
+        </button>
+    </aside>
+
+</body>
+</html>
