@@ -42,6 +42,7 @@ main {
             padding: 11px 18px;
             border: 2px solid var(--border-primary);
             font: var(--input);
+            color: var(--always-white);
             &:hover {
                 outline: none;
                 border: 2px solid #94A3B8;
@@ -98,6 +99,10 @@ main {
     &:hover {
         box-shadow: 2px 2px 10px var(--color-brand);
         transform: scale(1.05);
+        button {
+            background-image: url(../assets/trash-hover.svg);
+        }
+
     }
 
     input {
@@ -133,10 +138,6 @@ main {
         background-image: url(../assets/trash.svg);
         background-repeat: no-repeat;
         background-position: center;
-
-        &:hover {
-            background-image: url(../assets/trash-hover.svg);
-        }
     }
 }
 
@@ -151,16 +152,16 @@ main {
     width: fit-content;
     opacity: 0.7;
     position: fixed;
-    left: 20vw;
-    right: 20vw;
-    bottom: 50px;
+    left: 50%;
+    bottom: 30px;
     
-    transform: translateY(0px) scale(1);
+    transform: translateX(-50%) translateY(0px) scale(1);
     transition: transform ease-out 350ms;
     transition: opacity ease-out 450ms;
     
     &:hover {
         opacity: 1;
+
     }
     
     p {
@@ -179,25 +180,4 @@ main {
 .toast-off {
     transform: translateY(100px) scale(0.5);
     opacity: 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-primary: #0F1117;
-    --background-secondary: #1A1D24;
-
-    --color-brand: #CA3884;
-    --color-brand-hover: #E04A97;
-
-    --color-danger: #E35D6A;
-
-    --content-primary: #F9FAFB;
-    --content-secondary: #D1D5DB;
-    --content-tertiary: #9CA3AF;
-
-    --always-white: #FFFFFF;
-
-    --border-primary: #374151;
-    --border-hover: #6B7280;
-  }
 }

@@ -47,3 +47,24 @@ a {
 li {
     list-style: none;
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-primary: #0F1117;
+    --background-secondary: #1A1D24;
+
+    --color-brand: #CA3884;
+    --color-brand-hover: #E04A97;
+
+    --color-danger: #E35D6A;
+
+    --content-primary: #F9FAFB;
+    --content-secondary: #D1D5DB;
+    --content-tertiary: #9CA3AF;
+
+    --always-white: #FFFFFF;
+
+    --border-primary: #374151;
+    --border-hover: #6B7280;
+  }
+}
