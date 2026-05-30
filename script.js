@@ -1,6 +1,7 @@
 const form = document.querySelector('form');
 const inputName = document.querySelector('#elementName');
 const listContainer = document.querySelector('.list-of-elements');
+const emptyMsgContainer = document.querySelector('.empty-list-msg');
 
 // --------------- pegar a lista de itens do localStore ----------
 let listItems = localStorage.getItem('quicklist');
@@ -17,6 +18,7 @@ window.onload = () => {
         createElement(element.itemName, element.checked, element.id);
     });
     }
+    emptyListMsg();
 }
 
 // ----------------- evento submit --------------
@@ -54,6 +56,8 @@ function createElement(itemName, checked, id) {
     
     li.append(input, span, button);
     listContainer.append(li);
+
+    emptyListMsg();
 }
 
 // ----------------- salva a lista no localStorage -----------
@@ -93,5 +97,18 @@ listContainer.addEventListener('click', (event) => {
         setTimeout(() => {
             item.remove()
         }, 350)
+
+        emptyListMsg();
     };
 });
+
+// ------------------ mensagem informando lista vazia ------------
+function emptyListMsg() {
+    if (listItems.length) {
+        emptyMsgContainer.style.display = 'none';
+    } else {
+        setTimeout( () => {
+            emptyMsgContainer.style.display = 'block';
+        }, 350)
+    }
+};
