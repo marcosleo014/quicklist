@@ -48,7 +48,7 @@ li {
     list-style: none;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background-primary: #0F1117;
     --background-secondary: #1A1D24;
@@ -67,4 +67,4 @@ li {
     --border-primary: #374151;
     --border-hover: #6B7280;
   }
-}
+} */

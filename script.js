@@ -7,14 +7,57 @@ const btnToast = document.querySelector('.close-toast');
 const controlSelection = document.querySelector('#control-selection');
 const btnCleanList = document.querySelector('.clean-list-container');
 const listConstrolsContainer = document.querySelector('.list-controls');
+const inputThemeToglle = document.querySelector('#theme-toglle-input');
 
-// --------------- pegar a lista de itens do localStore ----------
+// --------------- pegar a lista de itens do localStorage ----------
 let listItems = localStorage.getItem('quicklist');
 if (listItems) {
     listItems = JSON.parse(listItems);
 } else {
     listItems = [];
 };
+
+// ----------- pegar a lista de configurações no localStorage ----------------
+let listSettings = localStorage.getItem('quicklist-settings');
+if (listSettings) {
+    listSettings = JSON.parse(listSettings);
+    attTheme()
+} else {
+    const themeDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    listSettings = {
+        'themeDark' : themeDark
+    };
+    attTheme();
+    saveListSettings();
+};
+// ------------------- atualizar o tema ---------------
+function attTheme() {
+    if (listSettings.themeDark) {
+        document.documentElement.style.setProperty('--background-primary', '#0F1117');
+        document.documentElement.style.setProperty('--background-secondary', '#1A1D24');
+        document.documentElement.style.setProperty('--color-brand-hover', '#E04A97');
+        document.documentElement.style.setProperty('--color-danger', '#E35D6A');
+        document.documentElement.style.setProperty('--content-primary', '#F9FAFB');
+        document.documentElement.style.setProperty('--content-secondary', '#D1D5DB');
+        document.documentElement.style.setProperty('--border-primary', '#374151');
+    } else {
+        document.documentElement.style.setProperty('--background-primary', '#F4F5FB');
+        document.documentElement.style.setProperty('--background-secondary', '#FFFFFF');
+        document.documentElement.style.setProperty('--color-brand-hover', '#A52C6B');
+        document.documentElement.style.setProperty('--color-danger', '#C93847');
+        document.documentElement.style.setProperty('--content-primary', '#080B12');
+        document.documentElement.style.setProperty('--content-secondary', '#374151');
+        document.documentElement.style.setProperty('--border-primary', '#D1D5DB');
+    }
+};
+
+//---------------- save list settings ---------------------
+function saveListSettings() {
+    localStorage.setItem(
+        'quicklist-settings',
+        JSON.stringify(listSettings)
+    );
+}
 
 // ------------- adicionar itens ao carregar a tela ------------
 window.onload = () => {
@@ -205,3 +248,18 @@ btnCleanList.onclick = () => {
     toastMsg('Todos os itens foram removidos', true);
     emptyListMsg();
 };
+
+// ----------------- alterância de tema ---------
+inputThemeToglle.addEventListener('change', (event) => {
+    if (event.target.checked) {
+        console.log('ativar tema claro');
+        listSettings.themeDark = false;
+        attTheme();
+        saveListSettings()
+    } else {
+        console.log('ativar tema escuro')
+        listSettings.themeDark = true;
+        attTheme();
+        saveListSettings()
+    };
+});
