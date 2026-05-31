@@ -28,7 +28,7 @@ form.onsubmit = (event) => {
     event.preventDefault();
     const itemName = inputName.value.trim();
     if (!itemName) {
-        toastMsg('Adicione um descrição para o item', true);
+        toastMsg('Adicione uma descrição do item', true);
         inputName.value = ''
         return
     }
@@ -126,6 +126,7 @@ function emptyListMsg() {
 let toastTimeout;
 
 function toastMsg(msg, warning) {
+    btnToast.closest('aside').style.display = 'block';
     msgToastContainer.innerText = msg;
     const toastContainer = msgToastContainer.closest('.toast-notification');
     if (warning) {
