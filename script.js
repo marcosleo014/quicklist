@@ -55,19 +55,21 @@ form.onsubmit = (event) => {
 function createElement(itemName, checked, id) {
     const li = document.createElement('li');
     const input = document.createElement('input');
-    const span = document.createElement('span');
     const button = document.createElement('button');
+    const label = document.createElement('label');
 
     li.classList.add('element-list');
     li.setAttribute('data-id', id);
-    input.setAttribute('type', 'checkbox');
-    input.setAttribute('name', 'verification');
+    input.type = 'checkbox';
+    input.name= 'verification';
     input.checked = checked;
-    button.setAttribute('aria-label', 'remover  item da lista');
+    input.id = id
+    label.setAttribute('for', id);
+    button.setAttribute('aria-label', 'remover item da lista');
     
-    span.innerText = itemName;
+    label.innerText = itemName;
     
-    li.append(input, span, button);
+    li.append(input, label, button);
     listContainer.append(li);
 
     emptyListMsg();
@@ -170,6 +172,14 @@ controlSelection.addEventListener('change', (event) => {
         }
     }
 })
+
+// função que atualiza os checkbox na tela
+function attCheckboxInViewerport(checkedStatus) {
+    document.querySelectorAll('.element-list>input[type="checkbox"]').forEach(
+        checkbox => checkbox.checked = checkedStatus
+    );
+}
+
 // verifica qual deve ser o status do boltão de controle de seleção
 function checkboxStatusVerification() {
     if (listItems.find(item => item.checked == false)) {
@@ -180,20 +190,18 @@ function checkboxStatusVerification() {
         controlSelection.checked = true;
     }
 }
-// função que atualiza os checkbox na tela
-function attCheckboxInViewerport(checkedStatus) {
-    document.querySelectorAll('.element-list>input[type="checkbox"]').forEach(
-        checkbox => checkbox.checked = checkedStatus
-    );
-}
 
 // ---------------- esvaziar lista -----------------
 btnCleanList.onclick = () => {
-    document.querySelectorAll('.element-list').forEach( item => item.remove());
+    document.querySelectorAll('.element-list').forEach((item) => {
+        item.classList.add('remove-item');
+
+        setTimeout(() => {
+            item.remove();
+        }, 350);
+    });
     listItems = [];
     saveListToLocalStorage();
     toastMsg('Todos os itens foram removidos', true);
     emptyListMsg();
 };
-
-// --------- verifica se o painel de funções deve aparecer ----
