@@ -30,6 +30,7 @@ if (listSettings) {
     attTheme();
     saveListSettings();
 };
+
 // ------------------- atualizar o tema ---------------
 function attTheme() {
     if (listSettings.themeDark) {
@@ -49,6 +50,7 @@ function attTheme() {
         document.documentElement.style.setProperty('--content-secondary', '#374151');
         document.documentElement.style.setProperty('--border-primary', '#D1D5DB');
     }
+    inputThemeToglle.checked = listSettings.themeDark;
 };
 
 //---------------- save list settings ---------------------
@@ -249,16 +251,19 @@ btnCleanList.onclick = () => {
     emptyListMsg();
 };
 
-// ----------------- alterância de tema ---------
+// ----------- adicionar o estado inicial do toglleTheme ------
+
+// ----------------- alternância de tema ---------
 inputThemeToglle.addEventListener('change', (event) => {
     if (event.target.checked) {
-        console.log('ativar tema claro');
-        listSettings.themeDark = false;
-        attTheme();
-        saveListSettings()
-    } else {
-        console.log('ativar tema escuro')
+        console.log('modo dark ativado');
         listSettings.themeDark = true;
+        attTheme();
+        saveListSettings();
+        
+    } else {
+        console.log('modo light ativado')
+        listSettings.themeDark = false;
         attTheme();
         saveListSettings()
     };
