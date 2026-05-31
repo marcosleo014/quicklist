@@ -160,10 +160,11 @@ main {
     margin-inline: auto;
     background-color: var(--color-danger);
     width: fit-content;
-    opacity: 0.7;
+    opacity: 0.5;
     position: fixed;
-    right: 20px;
-    top: 20px;
+    right: 50%;
+    transform: translateX(50%);
+    top: 65px;
     
     transition: transform ease 350ms;
     transition: opacity ease 450ms;
