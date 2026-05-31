@@ -2,6 +2,8 @@ const form = document.querySelector('form');
 const inputName = document.querySelector('#elementName');
 const listContainer = document.querySelector('.list-of-elements');
 const emptyMsgContainer = document.querySelector('.empty-list-msg');
+const msgToastContainer = document.querySelector('.msg-toast');
+const btnToast = document.querySelector('.close-toast');
 
 // --------------- pegar a lista de itens do localStore ----------
 let listItems = localStorage.getItem('quicklist');
@@ -25,6 +27,11 @@ window.onload = () => {
 form.onsubmit = (event) => {
     event.preventDefault();
     const itemName = inputName.value.trim();
+    if (!itemName) {
+        toastMsg('Adicione um descrição para o item', true);
+        inputName.value = ''
+        return
+    }
     const id = Date.now()
     listItems.push(
         {
@@ -36,6 +43,7 @@ form.onsubmit = (event) => {
     createElement(itemName, false, id);
     saveListToLocalStorage();
     inputName.value = ''
+    toastMsg('Item adicionado com sucesso!', false);
 };
 
 // ----------- adiciona um item no elements-area ------------------------
@@ -99,6 +107,7 @@ listContainer.addEventListener('click', (event) => {
         }, 350)
 
         emptyListMsg();
+        toastMsg('Item removido da lista', true)
     };
 });
 
@@ -112,3 +121,26 @@ function emptyListMsg() {
         }, 350)
     }
 };
+
+// -------------------- toast msg -----------------
+let toastTimeout;
+
+function toastMsg(msg, warning) {
+    msgToastContainer.innerText = msg;
+    const toastContainer = msgToastContainer.closest('.toast-notification');
+    if (warning) {
+        toastContainer.style.backgroundColor = '#C93847';
+    } else {
+        toastContainer.style.backgroundColor = '#2E7D32';
+    }
+    toastContainer.classList.remove('toast-off');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout( () => {
+        toastContainer.classList.add('toast-off');
+    }, 4000);
+}
+
+// --------------- button close of toast ----------------
+btnToast.addEventListener('click', () => {
+    btnToast.closest('aside').style.display = 'none'
+})
