@@ -42,7 +42,7 @@ main {
             padding: 11px 18px;
             border: 2px solid var(--border-primary);
             font: var(--input);
-            color: var(--always-white);
+            color: var(--content-primary);
             &:hover {
                 outline: none;
                 border: 2px solid #94A3B8;
@@ -128,7 +128,7 @@ main {
     span {
         flex-grow: 1;
         font: var(--paragraph);
-        color: var(--content-secondary);
+        color: var(--content-primary);
         line-height: 33px;
     }
     
@@ -153,7 +153,6 @@ main {
 
 .toast-notification {
     display: flex;
-    flex-wrap: nowrap;
     align-items: center;
     gap: 8px;
     padding: 12px;
@@ -177,7 +176,7 @@ main {
     p {
         font: var(--label);
         color: var(--always-white);
-        white-space: nowrap;
+        /* white-space: nowrap; */
     }
     
     button {
@@ -191,4 +190,55 @@ main {
 .toast-off {
     transform: translate( -50%, -50px) scale(0);
     opacity: 0;
+}
+
+.list-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    
+    .items-selection-container, .clean-list-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+
+        font: var(--paragraph);
+        color: var(--always-white);
+    }
+
+    .items-selection-container {
+        opacity: 0;
+        color: var(--content-primary);
+        input {
+        appearance: none;
+        height: 16px;
+        width: 16px;
+        background-image: url(../assets/state-default.svg);
+        background-size: cover;
+        &:hover {
+            background-image: url(../assets/state-hover.svg);
+        }
+        &:checked {
+            background-image: url(../assets/state-selected.svg);
+        }
+    }
+    }
+
+    .clean-list-container {
+        background-color: #C93847;
+        border: none;
+        border-radius: 8px;
+        padding-inline-start: 10px;
+        transition: transform ease-in-out 100ms;
+        &:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 5px var(--content-primary);
+        }
+        &:active {
+            background-color: #c70b1e;
+        }
+    }
 }

@@ -4,6 +4,8 @@ const listContainer = document.querySelector('.list-of-elements');
 const emptyMsgContainer = document.querySelector('.empty-list-msg');
 const msgToastContainer = document.querySelector('.msg-toast');
 const btnToast = document.querySelector('.close-toast');
+// const controlSelection = document.querySelector('#control-selection');
+const btnCleanList = document.querySelector('.clean-list-container');
 
 // --------------- pegar a lista de itens do localStore ----------
 let listItems = localStorage.getItem('quicklist');
@@ -126,7 +128,7 @@ function emptyListMsg() {
 let toastTimeout;
 
 function toastMsg(msg, warning) {
-    btnToast.closest('aside').style.display = 'block';
+    btnToast.closest('aside').style.display = 'flex';
     msgToastContainer.innerText = msg;
     const toastContainer = msgToastContainer.closest('.toast-notification');
     if (warning) {
@@ -145,3 +147,31 @@ function toastMsg(msg, warning) {
 btnToast.addEventListener('click', () => {
     btnToast.closest('aside').style.display = 'none'
 })
+
+// // ---------------- seleção dos itens na lista --------
+// controlSelection.addEventListener('change', (event) => {
+//     if (event.target.type = 'checkbox') {
+//         if (controlSelection.checked) {
+//             listItems.forEach( item => item.checked = true)
+//             event.target.nextElementSibling.innerText = 'Desmarcar todos'
+//             toastMsg('Todos os itens foram marcados', false);
+//             saveListToLocalStorage()
+//         } else {
+//             listItems.forEach( item => item.checked = false)
+//             event.target.nextElementSibling.innerText = 'Marcar todos'
+//             toastMsg('Todos os itens foram desmarcados', false)
+//             saveListToLocalStorage()
+//         }
+//     }
+// })
+
+// ---------------- esvaziar lista -----------------
+btnCleanList.onclick = () => {
+    document.querySelectorAll('.element-list').forEach( item => item.remove());
+    listItems = [];
+    saveListToLocalStorage();
+    toastMsg('Todos os itens foram removidos', true);
+    emptyListMsg();
+};
+
+// ----------- verifica se o painel de funções deve aparecer ----
