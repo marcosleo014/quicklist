@@ -4,8 +4,9 @@ const listContainer = document.querySelector('.list-of-elements');
 const emptyMsgContainer = document.querySelector('.empty-list-msg');
 const msgToastContainer = document.querySelector('.msg-toast');
 const btnToast = document.querySelector('.close-toast');
-// const controlSelection = document.querySelector('#control-selection');
+const controlSelection = document.querySelector('#control-selection');
 const btnCleanList = document.querySelector('.clean-list-container');
+const listConstrolsContainer = document.querySelector('.list-controls');
 
 // --------------- pegar a lista de itens do localStore ----------
 let listItems = localStorage.getItem('quicklist');
@@ -23,6 +24,7 @@ window.onload = () => {
     });
     }
     emptyListMsg();
+    checkboxStatusVerification();
 }
 
 // ----------------- evento submit --------------
@@ -42,10 +44,11 @@ form.onsubmit = (event) => {
             checked: false
         }
     );
+    inputName.value = ''
     createElement(itemName, false, id);
     saveListToLocalStorage();
-    inputName.value = ''
     toastMsg('Item adicionado com sucesso!', false);
+    checkboxStatusVerification();
 };
 
 // ----------- adiciona um item no elements-area ------------------------
@@ -90,6 +93,7 @@ listContainer.addEventListener('change', (event) => {
         item.checked = checked;
 
         saveListToLocalStorage();
+        checkboxStatusVerification();
     }
 });
 
@@ -117,10 +121,12 @@ listContainer.addEventListener('click', (event) => {
 function emptyListMsg() {
     if (listItems.length) {
         emptyMsgContainer.style.display = 'none';
+        listConstrolsContainer.style.display = 'flex'
     } else {
         setTimeout( () => {
             emptyMsgContainer.style.display = 'block';
         }, 350)
+        listConstrolsContainer.style.display = 'none'
     }
 };
 
@@ -148,22 +154,38 @@ btnToast.addEventListener('click', () => {
     btnToast.closest('aside').style.display = 'none'
 })
 
-// // ---------------- seleção dos itens na lista --------
-// controlSelection.addEventListener('change', (event) => {
-//     if (event.target.type = 'checkbox') {
-//         if (controlSelection.checked) {
-//             listItems.forEach( item => item.checked = true)
-//             event.target.nextElementSibling.innerText = 'Desmarcar todos'
-//             toastMsg('Todos os itens foram marcados', false);
-//             saveListToLocalStorage()
-//         } else {
-//             listItems.forEach( item => item.checked = false)
-//             event.target.nextElementSibling.innerText = 'Marcar todos'
-//             toastMsg('Todos os itens foram desmarcados', false)
-//             saveListToLocalStorage()
-//         }
-//     }
-// })
+// ---------------- seleção dos itens na lista ----------------
+controlSelection.addEventListener('change', (event) => {
+    if (event.target.type === 'checkbox') {
+        if (controlSelection.checked) {
+            listItems.forEach( item => item.checked = true)
+            toastMsg('Todos os itens foram marcados', false);
+            saveListToLocalStorage();
+            attCheckboxInViewerport(true);
+        } else {
+            listItems.forEach( item => item.checked = false)
+            toastMsg('Todos os itens foram desmarcados', false)
+            saveListToLocalStorage();
+            attCheckboxInViewerport(false);
+        }
+    }
+})
+// verifica qual deve ser o status do boltão de controle de seleção
+function checkboxStatusVerification() {
+    if (listItems.find(item => item.checked == false)) {
+        console.log('marcar todos');
+        controlSelection.checked = false;
+    } else {
+        console.log('desmarcar todos');
+        controlSelection.checked = true;
+    }
+}
+// função que atualiza os checkbox na tela
+function attCheckboxInViewerport(checkedStatus) {
+    document.querySelectorAll('.element-list>input[type="checkbox"]').forEach(
+        checkbox => checkbox.checked = checkedStatus
+    );
+}
 
 // ---------------- esvaziar lista -----------------
 btnCleanList.onclick = () => {
@@ -174,4 +196,4 @@ btnCleanList.onclick = () => {
     emptyListMsg();
 };
 
-// ----------- verifica se o painel de funções deve aparecer ----
+// --------- verifica se o painel de funções deve aparecer ----
