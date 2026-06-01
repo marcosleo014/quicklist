@@ -1,5 +1,11 @@
 .header-logo {
     padding-block: 25px 62px;
+
+    img {
+        height: 40px;
+        object-fit: cover;
+    }
+
     h1 {
         display: flex;
         justify-content: center;
